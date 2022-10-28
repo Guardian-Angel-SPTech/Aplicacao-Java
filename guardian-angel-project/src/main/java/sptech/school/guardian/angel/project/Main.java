@@ -189,7 +189,7 @@ public class Main extends javax.swing.JFrame {
         textoProcessos.setForeground(new java.awt.Color(0, 0, 0));
         textoProcessos.setText("Processos:");
         getContentPane().add(textoProcessos);
-        textoProcessos.setBounds(500, 60, 100, 24);
+        textoProcessos.setBounds(500, 60, 120, 24);
 
         processoTextArea.setBackground(new java.awt.Color(204, 204, 204));
         processoTextArea.setColumns(20);
