@@ -9,7 +9,9 @@ import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
 import com.github.britooo.looca.api.util.Conversor;
+import java.io.IOException;
 import java.util.List;
+import org.json.JSONObject;
 
 public class InformacoesLooca {
 
@@ -22,6 +24,7 @@ public class InformacoesLooca {
     DiscoGrupo discoGrupo = looca.getGrupoDeDiscos();
     List<Disco> discos = discoGrupo.getDiscos();
     List<Volume> volumes = discoGrupo.getVolumes();
+    JSONObject json = new JSONObject();
 
     public void timer(Integer tempo) {
         try {
@@ -40,21 +43,22 @@ public class InformacoesLooca {
         }
     }
 
-
     public void exibirMemoria() {
         while (true) {
             System.out.println(memoriaRam);
         }
     }
 
-    public String validacaoCPU() {
+    public String validacaoCPU() throws IOException, InterruptedException {
         Double cpu = looca.getProcessador().getUso();
         if (cpu <= 40) {
             return "Bom";
         } else if (cpu > 40 && cpu < 70) {
             return "Ok";
         } else {
-            return "Critico";
+            json.put("text", "Crítico");
+            Slack.sendMessage(json);
+            return "Crítico";
         }
     }
 

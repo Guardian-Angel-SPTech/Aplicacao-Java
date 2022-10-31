@@ -4,10 +4,13 @@ import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends javax.swing.JFrame {
 
@@ -288,7 +291,11 @@ public class Main extends javax.swing.JFrame {
                 while (rootPaneCheckingEnabled) {
                     String texto = "";
                     processoTextArea.setText(texto);
-                    statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
+                    try {
+                        statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
+                    } catch (IOException | InterruptedException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     statusRAM.setText(String.format("%.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
                     statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
                     
