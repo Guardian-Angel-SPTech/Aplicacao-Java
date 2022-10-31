@@ -294,7 +294,7 @@ public class Main extends javax.swing.JFrame {
                     
                     for (Processo processo : processos) {
                         if (processo.getUsoCpu() >= 0.5) {
-                            texto += "Nome: " + processo.getNome() + "\n" + "Uso da CPU: " + processo.getUsoCpu() + "\n";
+                            texto += String.format( "Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(),processo.getUsoCpu());
                         }
                     }
                     processoTextArea.setText(texto);
