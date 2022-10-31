@@ -282,20 +282,22 @@ public class Main extends javax.swing.JFrame {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Integer c = 0;
-                String texto = "";
+                
+
                 mudarNome.setText("ADMIN");
                 while (rootPaneCheckingEnabled) {
+                    String texto = "";
+                    processoTextArea.setText(texto);
                     statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
                     statusRAM.setText(String.format("%.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
                     statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
-                    processoTextArea.setText(texto);
-
+                    
                     for (Processo processo : processos) {
                         if (processo.getUsoCpu() >= 0.5) {
                             texto += "Nome: " + processo.getNome() + "\n" + "Uso da CPU: " + processo.getUsoCpu() + "\n";
                         }
                     }
+                    processoTextArea.setText(texto);
                     il.timer(7000);
                 }
 
