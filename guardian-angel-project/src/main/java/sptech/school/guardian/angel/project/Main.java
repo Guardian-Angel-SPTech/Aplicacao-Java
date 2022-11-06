@@ -23,6 +23,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     List<Sistema> sistemasAbertos = new ArrayList();
+    List<Dashboard> dashAbertos = new ArrayList();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +50,7 @@ public class Main extends javax.swing.JFrame {
         textoProcessos = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         processoTextArea = new javax.swing.JTextArea();
+        mainBotaoDash = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Guardian Angel");
@@ -204,6 +206,19 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(300, 100, 500, 320);
 
+        mainBotaoDash.setBackground(new java.awt.Color(10, 35, 66));
+        mainBotaoDash.setForeground(new java.awt.Color(255, 255, 255));
+        mainBotaoDash.setText("Dasboard");
+        mainBotaoDash.setBorder(null);
+        mainBotaoDash.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        mainBotaoDash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainBotaoDashActionPerformed(evt);
+            }
+        });
+        getContentPane().add(mainBotaoDash);
+        mainBotaoDash.setBounds(730, 20, 90, 30);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -218,6 +233,7 @@ public class Main extends javax.swing.JFrame {
         for (Sistema sistema : sistemasAbertos) {
             sistema.setVisible(false);
         }
+
         propriedades.dispose();
 
         propriedades.setVisible(true);
@@ -236,6 +252,21 @@ public class Main extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_mainBotaoSairActionPerformed
+
+    private void mainBotaoDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainBotaoDashActionPerformed
+
+        Dashboard dash = new Dashboard();
+        dashAbertos.add(dash);
+
+        for (Sistema sistema : sistemasAbertos) {
+            sistema.setVisible(false);
+        }
+
+        dash.dispose();
+
+        dash.setVisible(true);
+
+    }//GEN-LAST:event_mainBotaoDashActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,7 +316,6 @@ public class Main extends javax.swing.JFrame {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                
 
                 mudarNome.setText("ADMIN");
                 while (rootPaneCheckingEnabled) {
@@ -298,10 +328,10 @@ public class Main extends javax.swing.JFrame {
                     }
                     statusRAM.setText(String.format("%.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
                     statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
-                    
+
                     for (Processo processo : processos) {
                         if (processo.getUsoCpu() >= 0.5) {
-                            texto += String.format( "Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(),processo.getUsoCpu());
+                            texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
                         }
                     }
                     processoTextArea.setText(texto);
@@ -320,6 +350,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton mainBotaoDash;
     private javax.swing.JButton mainBotaoPropiedades;
     private javax.swing.JButton mainBotaoSair;
     private javax.swing.JLabel mainLogo;

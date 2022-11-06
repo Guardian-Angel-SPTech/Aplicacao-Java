@@ -49,9 +49,9 @@ public class Dashboard extends javax.swing.JFrame {
             if (numero == 1) {
                 series.add(i, looca.getProcessador().getUso());
             } else if (numero == 2) {
-                series.add(i, looca.getMemoria().getEmUso());
+                series.add(i, il.porcentagemRam());
             } else {
-                series.add(i, 70);
+                series.add(i, il.exibirMemoriaDisco());
             }
         }
 
@@ -62,9 +62,9 @@ public class Dashboard extends javax.swing.JFrame {
                 if (numero == 1) {
                     series.add(series.getItemCount(), looca.getProcessador().getUso());
                 } else if (numero == 2) {
-                    series.add(series.getItemCount(), looca.getMemoria().getEmUso());
+                    series.add(series.getItemCount(), il.porcentagemRam());
                 } else {
-                    series.add(series.getItemCount(), 70);
+                    series.add(series.getItemCount(), il.exibirMemoriaDisco());
                 }
             }
         }).start();
