@@ -32,6 +32,7 @@ public class InformacoesLooca {
         } catch (Exception e) {
         }
     }
+    
 
     public void exibirProcessos() {
         while (true) {
