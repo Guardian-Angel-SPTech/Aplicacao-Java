@@ -4,30 +4,23 @@
  */
 package sptech.school.guardian.angel.project;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ConexaoMySql {
 
-    public void conexaoBanco() {
-        try {
-            String url = "jdbc:mysql://localhost/GuardianAngel";
+    private JdbcTemplate conexao;
 
-            String usuario = "aluno";
-
-            String senha = "sptech";
-
-            Connection conexao = DriverManager.getConnection(url, usuario, senha);
-        } catch (SQLException ex) {
-
-            ex.printStackTrace();
-
-        }
+    public ConexaoMySql() {
+        BasicDataSource datasource = new BasicDataSource();
+        datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        datasource.setUrl("jdbc:mysql://localhost/GuardianAngel");
+        datasource.setUsername("aluno");
+        datasource.setPassword("sptech");
+        conexao = new JdbcTemplate(datasource);
     }
+    public JdbcTemplate getConexao(){
+        return conexao;
+    }
+
 }

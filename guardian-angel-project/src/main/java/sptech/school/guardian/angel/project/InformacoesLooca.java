@@ -50,15 +50,13 @@ public class InformacoesLooca {
         }
     }
 
-    public String validacaoCPU() throws IOException, InterruptedException {
+    public String validacaoCPU(){
         Double cpu = looca.getProcessador().getUso();
         if (cpu <= 40) {
             return "Bom";
         } else if (cpu > 40 && cpu < 70) {
             return "Ok";
         } else {
-            json.put("text", "Crítico");
-            Slack.sendMessage(json);
             return "Crítico";
         }
     }

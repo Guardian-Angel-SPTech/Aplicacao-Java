@@ -5,7 +5,9 @@ import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
 import java.awt.Color;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -306,6 +308,7 @@ public class Main extends javax.swing.JFrame {
     InformacoesLooca il = new InformacoesLooca();
     Timer timer = new Timer();
     Looca looca = new Looca();
+    ConexaoMySql cone = new ConexaoMySql();
     ProcessoGrupo processoGrupo = looca.getGrupoDeProcessos();
     List<Processo> processos = processoGrupo.getProcessos();
 
@@ -319,13 +322,12 @@ public class Main extends javax.swing.JFrame {
 
                 mudarNome.setText("ADMIN");
                 while (rootPaneCheckingEnabled) {
+                    Date dataHoraAtual = new Date();
+                    String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);
+                    String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
                     String texto = "";
                     processoTextArea.setText(texto);
-                    try {
-                        statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
-                    } catch (IOException | InterruptedException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
                     statusRAM.setText(String.format("%.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
                     statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
 
