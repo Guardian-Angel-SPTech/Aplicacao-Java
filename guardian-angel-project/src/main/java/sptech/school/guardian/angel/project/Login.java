@@ -4,6 +4,11 @@
  */
 package sptech.school.guardian.angel.project;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 /**
  *
  * @author aluno
@@ -132,19 +137,24 @@ public class Login extends javax.swing.JFrame {
 
     private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
         // TODO add your handling code here:
+        ConexaoMySql conexao = new ConexaoMySql();
+        JdbcTemplate con = conexao.getConexao();
         String emailLogin = inputEmail.getText();
         String senhaLogin = jPasswordField1.getText();
         InformacoesLooca il = new InformacoesLooca();
-        if (emailLogin.equals("adimin") & senhaLogin.equals("adimin")) {
-            Main main = new Main();
+        List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
+        
+            if (.getEmail().equals(emailLogin) && funcionario.getSenha().equals(senhaLogin)) {
+                Main main = new Main();
 
-            main.setVisible(true);
+                main.setVisible(true);
 
-            this.dispose();
-        } else{
-            ErroLogin erro = new ErroLogin();
-            erro.setVisible(true);
-        }
+                this.dispose();
+            } else {
+                ErroLogin erro = new ErroLogin();
+                erro.setVisible(true);
+            }
+        
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
     /**
