@@ -177,7 +177,7 @@ public class Login extends javax.swing.JFrame {
         Boolean existe = false;
 
         for (Funcionario funcionario : infFunc) {
-            if (funcionario.getSenha().equals(senhaLogin)) {
+            if (funcionario.getSenha().equals(senhaLogin)) {  
                 existe = true;
             }
         }
