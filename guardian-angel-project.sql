@@ -59,6 +59,6 @@ descChamado varchar(100),
 hora datetime,
 primary key(idChamado, fkMaquina, fkRegistro)
 );
-
-SELECT * FROM registro INNER JOIN Maquina ON fkMaquina = idMaquina INNER JOIN 
-funcionario ON fkFuncionario = idFuncionario WHERE fkFuncionario = idFuncionario and componente = 1 limit 10;
+insert into funcionario(nome, email, senha) values ('joao', 'joao@gmail.com', '123');
+insert into funcionario(nome, email, senha) values ('jorge', 'jorge@gmail.com', '123');
+INSERT INTO registro values (null, 1, 1, %s, %s, %s)", (ramU, hora, dia));

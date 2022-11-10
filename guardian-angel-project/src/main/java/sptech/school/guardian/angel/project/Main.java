@@ -13,6 +13,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class Main extends javax.swing.JFrame {
 
@@ -22,6 +24,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         printInfos();
+
     }
 
     List<Sistema> sistemasAbertos = new ArrayList();
@@ -308,19 +311,29 @@ public class Main extends javax.swing.JFrame {
     InformacoesLooca il = new InformacoesLooca();
     Timer timer = new Timer();
     Looca looca = new Looca();
-    ConexaoMySql cone = new ConexaoMySql();
     ProcessoGrupo processoGrupo = looca.getGrupoDeProcessos();
     List<Processo> processos = processoGrupo.getProcessos();
+    ConexaoMySql conexao = new ConexaoMySql();
+    JdbcTemplate con = conexao.getConexao();
+    Login lo = new Login();
+
+        String nome = "";
+    public String nomeLogado() {
+        List<Funcionario> infs = con.query
+        ("SELECT nome FROM funcionario where email = ? ", new BeanPropertyRowMapper(Funcionario.class), lo.getEmailLogado());
+        nome = infs.toString();
+        return nome;
+    }
 
     public void printInfos() {
         Integer delay = 0;
         Integer intervalo = 1;
+        mudarNome.setText(nomeLogado());
 
         timer.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
-
-                mudarNome.setText("ADMIN");
                 while (rootPaneCheckingEnabled) {
                     Date dataHoraAtual = new Date();
                     String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);

@@ -45,10 +45,11 @@ public class Funcionario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
 
     @Override
     public String toString() {
-        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", email=" + email + ", senha=" + senha + '}';
+        return String.format("Nome : %s \n id: %d \n email : %s \n senha : %s", nome, idFuncionario, email, senha);
     }
     
 }

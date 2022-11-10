@@ -6,6 +6,8 @@ package sptech.school.guardian.angel.project;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -137,25 +139,65 @@ public class Login extends javax.swing.JFrame {
 
     private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
         // TODO add your handling code here:
-        ConexaoMySql conexao = new ConexaoMySql();
-        JdbcTemplate con = conexao.getConexao();
         String emailLogin = inputEmail.getText();
         String senhaLogin = jPasswordField1.getText();
         InformacoesLooca il = new InformacoesLooca();
+
+        if (funcEmailExiste() && funcSenhaExiste()) {
+            Main main = new Main();
+            main.setVisible(true);
+
+            this.dispose();
+        } else {
+            ErroLogin erro = new ErroLogin();
+            erro.setVisible(true);
+        }
+
+
+    }//GEN-LAST:event_botaoEntrarActionPerformed
+
+        ConexaoMySql conexao = new ConexaoMySql();
+        JdbcTemplate con = conexao.getConexao();
         List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
         
-            if (.getEmail().equals(emailLogin) && funcionario.getSenha().equals(senhaLogin)) {
-                Main main = new Main();
+    public Boolean funcEmailExiste() {
+        String emailLogin = inputEmail.getText();
+        Boolean existe = false;
 
-                main.setVisible(true);
-
-                this.dispose();
-            } else {
-                ErroLogin erro = new ErroLogin();
-                erro.setVisible(true);
+        for (Funcionario funcionario : infFunc) {
+            if (funcionario.getEmail().equals(emailLogin)) {
+                existe = true;
             }
-        
-    }//GEN-LAST:event_botaoEntrarActionPerformed
+        }
+        return existe;
+    }
+
+    public Boolean funcSenhaExiste() {
+        String senhaLogin = jPasswordField1.getText();
+        Boolean existe = false;
+
+        for (Funcionario funcionario : infFunc) {
+            if (funcionario.getSenha().equals(senhaLogin)) {
+                existe = true;
+            }
+        }
+        return existe;
+    }
+
+    public List informacoesLogado() {
+        List<Funcionario> funcionario = null;
+        String emailLogin = inputEmail.getText();
+        String senhaLogin = jPasswordField1.getText();
+        List<Funcionario> infs = con.query
+        ("SELECT * FROM funcionario where email = ? " , new BeanPropertyRowMapper(Funcionario.class), emailLogin);
+        if (funcEmailExiste() && funcSenhaExiste()) {
+            funcionario = infs;
+        } 
+            return funcionario;  
+    }
+   public String getEmailLogado(){
+       return inputEmail.getText();
+   }
 
     /**
      * @param args the command line arguments

@@ -14,7 +14,7 @@ public class ConexaoMySql {
     public ConexaoMySql() {
         BasicDataSource datasource = new BasicDataSource();
         datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        datasource.setUrl("jdbc:mysql://localhost/GuardianAngel");
+        datasource.setUrl("jdbc:mysql://localhost : 3306/GuardianAngel");
         datasource.setUsername("aluno");
         datasource.setPassword("sptech");
         conexao = new JdbcTemplate(datasource);
