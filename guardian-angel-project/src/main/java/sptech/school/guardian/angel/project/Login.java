@@ -185,19 +185,14 @@ public class Login extends javax.swing.JFrame {
     }
 
     public List informacoesLogado() {
-        List<Funcionario> funcionario = null;
         String emailLogin = inputEmail.getText();
-        String senhaLogin = jPasswordField1.getText();
         List<Funcionario> infs = con.query
         ("SELECT * FROM funcionario where email = ? " , new BeanPropertyRowMapper(Funcionario.class), emailLogin);
         if (funcEmailExiste() && funcSenhaExiste()) {
-            funcionario = infs;
+            return infs;  
         } 
-            return funcionario;  
+        return null;
     }
-   public String getEmailLogado(){
-       return inputEmail.getText();
-   }
 
     /**
      * @param args the command line arguments

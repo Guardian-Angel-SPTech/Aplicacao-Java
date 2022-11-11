@@ -10,6 +10,7 @@ nomeEmpresa varchar(45)
 
 create table funcionario (
 idFuncionario int primary key auto_increment,
+fkMaquina int,
 nome varchar(45),
 cpf char(11),
 email varchar(45),
@@ -44,7 +45,6 @@ fkMaquina int,
 componente varchar(20),
 registroComponente decimal,
 horaRegistro time,
-foreign key (fkMaquina) references maquina (idMaquina),
 dataRegistro date,
 primary key(idRegistro, fkMaquina)
 );
@@ -59,6 +59,10 @@ descChamado varchar(100),
 hora datetime,
 primary key(idChamado, fkMaquina, fkRegistro)
 );
+
+ALTER TABLE funcionario
+ADD FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina);
 insert into funcionario(nome, email, senha) values ('joao', 'joao@gmail.com', '123');
 insert into funcionario(nome, email, senha) values ('jorge', 'jorge@gmail.com', '123');
-INSERT INTO registro values (null, 1, 1, %s, %s, %s)", (ramU, hora, dia));
+INSERT INTO registro values (null, 1, 1, %s, %s, %s);
+select * from registro;

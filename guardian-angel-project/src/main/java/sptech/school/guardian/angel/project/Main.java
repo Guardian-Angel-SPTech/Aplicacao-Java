@@ -24,6 +24,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         printInfos();
+        nomeLogado();
 
     }
 
@@ -315,20 +316,22 @@ public class Main extends javax.swing.JFrame {
     List<Processo> processos = processoGrupo.getProcessos();
     ConexaoMySql conexao = new ConexaoMySql();
     JdbcTemplate con = conexao.getConexao();
-    Login lo = new Login();
+    Login login = new Login();
+    Funcionario func1 = (Funcionario) login.informacoesLogado();
+    String insertionRam = "INSERT INTO registro values (null, 1, 1, ?, ?, ?)";
+    String insertionCPU = "INSERT INTO registro values (null, 1, 2, ?, ?, ?)";
+    String insertionDisco = "INSERT INTO registro values (null, 1, 3, ?, ?, ?)";
 
+    public void nomeLogado() {
         String nome = "";
-    public String nomeLogado() {
-        List<Funcionario> infs = con.query
-        ("SELECT nome FROM funcionario where email = ? ", new BeanPropertyRowMapper(Funcionario.class), lo.getEmailLogado());
-        nome = infs.toString();
-        return nome;
+//            nome = func1.getNome();
+//        System.out.println(login.informacoesLogado());
+        mudarNome.setText("");
     }
 
     public void printInfos() {
         Integer delay = 0;
         Integer intervalo = 1;
-        mudarNome.setText(nomeLogado());
 
         timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -350,6 +353,10 @@ public class Main extends javax.swing.JFrame {
                         }
                     }
                     processoTextArea.setText(texto);
+                    
+                    con.update(insertionRam, il.porcentagemRam(), hora,data);
+                    con.update(insertionCPU, il.processador.getUso(), hora,data);
+                    con.update(insertionDisco, il.porcentagemRam(), hora, data);
                     il.timer(7000);
                 }
 
