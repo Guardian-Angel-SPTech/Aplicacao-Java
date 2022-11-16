@@ -152,8 +152,6 @@ public class Login extends javax.swing.JFrame {
             ErroLogin erro = new ErroLogin();
             erro.setVisible(true);
         }
-
-
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
         ConexaoMySql conexao = new ConexaoMySql();

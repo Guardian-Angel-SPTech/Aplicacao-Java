@@ -321,6 +321,7 @@ public class Main extends javax.swing.JFrame {
     String insertionRam = "INSERT INTO registro values (null, 1, 1, ?, ?, ?)";
     String insertionCPU = "INSERT INTO registro values (null, 1, 2, ?, ?, ?)";
     String insertionDisco = "INSERT INTO registro values (null, 1, 3, ?, ?, ?)";
+    String insertionProcesso = "INSERT INTO registro values (null, 1, '?', ?, ?, ?)";
 
     public void nomeLogado() {
         String nome = "";
@@ -350,12 +351,12 @@ public class Main extends javax.swing.JFrame {
                     for (Processo processo : processos) {
                         if (processo.getUsoCpu() >= 0.5) {
                             texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
+                            con.update(insertionDisco, processo.getNome(),processo.getUsoCpu(), hora, data);
                         }
                     }
                     processoTextArea.setText(texto);
-                    
-                    con.update(insertionRam, il.porcentagemRam(), hora,data);
-                    con.update(insertionCPU, il.processador.getUso(), hora,data);
+                    con.update(insertionRam, il.porcentagemRam(), hora, data);
+                    con.update(insertionCPU, il.processador.getUso(), hora, data);
                     con.update(insertionDisco, il.porcentagemRam(), hora, data);
                     il.timer(7000);
                 }

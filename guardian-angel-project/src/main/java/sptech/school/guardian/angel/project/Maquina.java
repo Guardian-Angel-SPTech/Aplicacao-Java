@@ -10,6 +10,11 @@ package sptech.school.guardian.angel.project;
  */
 public class Maquina {
     private Integer idMaquina;
+    private String nomeMaquina;
+    private String statusMaquina;
+    private String processo;
+    private Double usoProcesso;
+    private String sistOp;
     private Integer fkEmpresa;
     private Integer fkFuncionario;
 
@@ -19,6 +24,46 @@ public class Maquina {
 
     public void setIdMaquina(Integer idMaquina) {
         this.idMaquina = idMaquina;
+    }
+
+    public String getNomeMaquina() {
+        return nomeMaquina;
+    }
+
+    public void setNomeMaquina(String nomeMaquina) {
+        this.nomeMaquina = nomeMaquina;
+    }
+
+    public String getStatusMaquina() {
+        return statusMaquina;
+    }
+
+    public void setStatusMaquina(String statusMaquina) {
+        this.statusMaquina = statusMaquina;
+    }
+
+    public String getProcesso() {
+        return processo;
+    }
+
+    public void setProcesso(String processo) {
+        this.processo = processo;
+    }
+
+    public Double getUsoProcesso() {
+        return usoProcesso;
+    }
+
+    public void setUsoProcesso(Double usoProcesso) {
+        this.usoProcesso = usoProcesso;
+    }
+
+    public String getSistOp() {
+        return sistOp;
+    }
+
+    public void setSistOp(String sistOp) {
+        this.sistOp = sistOp;
     }
 
     public Integer getFkEmpresa() {
@@ -36,4 +81,6 @@ public class Maquina {
     public void setFkFuncionario(Integer fkFuncionario) {
         this.fkFuncionario = fkFuncionario;
     }
+
+   
 }

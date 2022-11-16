@@ -10,7 +10,6 @@ nomeEmpresa varchar(45)
 
 create table funcionario (
 idFuncionario int primary key auto_increment,
-fkMaquina int,
 nome varchar(45),
 cpf char(11),
 email varchar(45),
@@ -22,17 +21,9 @@ foreign key (fkEmpresa) references empresa (idEmpresa)
 
 create table maquina (
 idMaquina int primary key auto_increment,
-nomeMaquina varchar(45),
-MAC char(17),
+ID char(17),
 statusMaquina varchar(45),
-processo varchar(45),
-usoProcesso decimal(5,2),
 sistOp varchar(45),
-bootTime varchar(45),
-identificadorCpu char(10),
-cpuLogica int,
-microArquitetura char(10),
-numeroCpu int,
 fkEmpresa int,
 foreign key (fkEmpresa) references empresa (idEmpresa),
 fkFuncionario int,
@@ -43,26 +34,30 @@ create table registro (
 idRegistro int auto_increment,
 fkMaquina int,
 componente varchar(20),
+processo varchar(45),
+usoProcesso decimal(5,2),
 registroComponente decimal,
 horaRegistro time,
 dataRegistro date,
 primary key(idRegistro, fkMaquina)
 );
 
-create table chamado (
-idChamado int auto_increment,
-fkMaquina int,
-foreign key (fkMaquina) references maquina (idMaquina),
-fkRegistro int,
-foreign key (fkRegistro) references registro (idRegistro),
-descChamado varchar(100),
-hora datetime,
-primary key(idChamado, fkMaquina, fkRegistro)
-);
+insert into empresa values
+(null, '43669182000109', 'empresa1', 'empresa' );
 
-ALTER TABLE funcionario
-ADD FOREIGN KEY (fkMaquina) REFERENCES maquina(idMaquina);
-insert into funcionario(nome, email, senha) values ('joao', 'joao@gmail.com', '123');
-insert into funcionario(nome, email, senha) values ('jorge', 'jorge@gmail.com', '123');
-INSERT INTO registro values (null, 1, 1, %s, %s, %s);
+insert into funcionario(nome, email, senha, fkEmpresa) values 
+('joao', 'joao@gmail.com', '123', 1);
+
+insert into funcionario(nome, email, senha, fkempresa) values 
+('jorge', 'jorge@gmail.com', '123', 1);
+
+insert into maquina(nomeMaquina,fkEmpresa, fkFuncionario) values
+('maquina 1', 1, 3);
+
+select * from funcionario;
 select * from registro;
+
+select nome, funcionario.email ,senha, funcionario.fkEmpresa from funcionario, empresa, maquina where
+idEmpresa = maquina.fkempresa and idFuncionario = maquina.fkFuncionario and idEmpresa = funcionario.fkEmpresa;
+
+

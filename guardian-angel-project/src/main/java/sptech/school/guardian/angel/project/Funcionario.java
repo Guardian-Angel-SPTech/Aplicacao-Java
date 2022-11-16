@@ -13,6 +13,15 @@ public class Funcionario {
     private String nome;
     private String email;
     private String senha;
+    private Integer fkEmpresa;
+
+    public Integer getFkEmpresa() {
+        return fkEmpresa;
+    }
+
+    public void setFkEmpresa(Integer fkEmpresa) {
+        this.fkEmpresa = fkEmpresa;
+    }
 
     public Integer getIdFuncionario() {
         return idFuncionario;
@@ -45,11 +54,10 @@ public class Funcionario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
 
     @Override
     public String toString() {
-        return String.format("Nome : %s \n id: %d \n email : %s \n senha : %s", nome, idFuncionario, email, senha);
+        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", fkEmpresa=" + fkEmpresa + '}';
     }
     
 }
