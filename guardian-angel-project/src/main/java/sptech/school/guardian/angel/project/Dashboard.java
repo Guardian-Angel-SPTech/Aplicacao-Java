@@ -24,9 +24,9 @@ public class Dashboard extends javax.swing.JFrame {
     private static final Random random = new Random();
     private int n = 1;
 
-    private void display() {
+    public void display() {
         JFrame f = new JFrame("Guardian Angel");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         final JTabbedPane jtp = new JTabbedPane();
         jtp.add("CPU", createPane(1));
         jtp.add("RAM", createPane(2));
@@ -72,7 +72,7 @@ public class Dashboard extends javax.swing.JFrame {
         JFreeChart chart;
 
         if (numero == 1) {
-            chart = ChartFactory.createXYLineChart("Porcemtagem de uso da CPU", "Leitura",
+            chart = ChartFactory.createXYLineChart("Porcentagem de uso da CPU", "Leitura",
                     "Medida", dataset, PlotOrientation.VERTICAL , false, false, false);
         } else if (numero == 2) {
             chart = ChartFactory.createXYLineChart("Porcentagem de uso da Memória RAM", "Leitura",
@@ -99,7 +99,9 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(854, 480));
+        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,6 +115,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

@@ -194,13 +194,13 @@ public class Main extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 260, 490);
+        jPanel1.setBounds(0, 0, 260, 480);
 
         textoProcessos.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         textoProcessos.setForeground(new java.awt.Color(0, 0, 0));
         textoProcessos.setText("Processos:");
         getContentPane().add(textoProcessos);
-        textoProcessos.setBounds(500, 60, 120, 24);
+        textoProcessos.setBounds(500, 60, 120, 22);
 
         processoTextArea.setBackground(new java.awt.Color(204, 204, 204));
         processoTextArea.setColumns(20);
@@ -262,15 +262,16 @@ public class Main extends javax.swing.JFrame {
     private void mainBotaoDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainBotaoDashActionPerformed
 
         Dashboard dash = new Dashboard();
-        dashAbertos.add(dash);
 
-        for (Sistema sistema : sistemasAbertos) {
-            sistema.setVisible(false);
+        Boolean trava = true;
+
+        if (trava == true) {
+            dash.display();
+            trava = false;
+        } else {
+            dash.dispose();
+            trava = true;
         }
-
-        dash.dispose();
-
-        dash.setVisible(true);
 
     }//GEN-LAST:event_mainBotaoDashActionPerformed
 
@@ -321,7 +322,7 @@ public class Main extends javax.swing.JFrame {
     String insertionRam = "INSERT INTO registro values (null, 1, 1, ?, ?, ?)";
     String insertionCPU = "INSERT INTO registro values (null, 1, 2, ?, ?, ?)";
     String insertionDisco = "INSERT INTO registro values (null, 1, 3, ?, ?, ?)";
-    String insertionProcesso = "INSERT INTO registro values (null, 1, '?', ?, ?, ?)";
+    String insertionProcesso = "INSERT INTO processo values (null, 1, ?, ?, ?, ?)";
 
     public void nomeLogado() {
         String nome = "";
@@ -351,7 +352,7 @@ public class Main extends javax.swing.JFrame {
                     for (Processo processo : processos) {
                         if (processo.getUsoCpu() >= 0.5) {
                             texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
-                            con.update(insertionDisco, processo.getNome(),processo.getUsoCpu(), hora, data);
+                            con.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
                         }
                     }
                     processoTextArea.setText(texto);

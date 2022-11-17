@@ -21,21 +21,25 @@ foreign key (fkEmpresa) references empresa (idEmpresa)
 
 create table maquina (
 idMaquina int primary key auto_increment,
-ID char(17),
-statusMaquina varchar(45),
 sistOp varchar(45),
 fkEmpresa int,
 foreign key (fkEmpresa) references empresa (idEmpresa),
 fkFuncionario int,
 foreign key (fkFuncionario) references funcionario (idFuncionario)
 );
-
+create table processo(
+idProcesso int auto_increment,
+fkMaquina int,
+nomeProcesso varchar(20),
+usoCpu decimal,
+horaRegistro time,
+dataRegistro date,
+primary key(idProcesso, fkMaquina)
+);
 create table registro (
 idRegistro int auto_increment,
 fkMaquina int,
 componente varchar(20),
-processo varchar(45),
-usoProcesso decimal(5,2),
 registroComponente decimal,
 horaRegistro time,
 dataRegistro date,
@@ -56,8 +60,7 @@ insert into maquina(nomeMaquina,fkEmpresa, fkFuncionario) values
 
 select * from funcionario;
 select * from registro;
+select * from processo;
 
 select nome, funcionario.email ,senha, funcionario.fkEmpresa from funcionario, empresa, maquina where
 idEmpresa = maquina.fkempresa and idFuncionario = maquina.fkFuncionario and idEmpresa = funcionario.fkEmpresa;
-
-
