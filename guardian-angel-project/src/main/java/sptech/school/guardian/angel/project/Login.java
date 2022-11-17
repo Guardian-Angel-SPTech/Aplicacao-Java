@@ -17,9 +17,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
     public Login() {
         initComponents();
 
@@ -136,17 +133,13 @@ public class Login extends javax.swing.JFrame {
     private void botaoDeNaoTemLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeNaoTemLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoDeNaoTemLoginActionPerformed
-
     private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
         // TODO add your handling code here:
         String emailLogin = inputEmail.getText();
-        String senhaLogin = jPasswordField1.getText();
-        InformacoesLooca il = new InformacoesLooca();
-
+        List<Funcionario> nomeFunc = con.query("SELECT nome FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class),emailLogin);
         if (funcEmailExiste() && funcSenhaExiste()) {
             Main main = new Main();
             main.setVisible(true);
-
             this.dispose();
         } else {
             ErroLogin erro = new ErroLogin();
@@ -154,10 +147,10 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
-        ConexaoMySql conexao = new ConexaoMySql();
-        JdbcTemplate con = conexao.getConexao();
-        List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
-        
+    ConexaoMySql conexao = new ConexaoMySql();
+    JdbcTemplate con = conexao.getConexao();
+    List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
+
     public Boolean funcEmailExiste() {
         String emailLogin = inputEmail.getText();
         Boolean existe = false;
@@ -175,21 +168,11 @@ public class Login extends javax.swing.JFrame {
         Boolean existe = false;
 
         for (Funcionario funcionario : infFunc) {
-            if (funcionario.getSenha().equals(senhaLogin)) {  
+            if (funcionario.getSenha().equals(senhaLogin)) {
                 existe = true;
             }
         }
         return existe;
-    }
-
-    public List informacoesLogado() {
-        String emailLogin = inputEmail.getText();
-        List<Funcionario> infs = con.query
-        ("SELECT * FROM funcionario where email = ? " , new BeanPropertyRowMapper(Funcionario.class), emailLogin);
-        if (funcEmailExiste() && funcSenhaExiste()) {
-            return infs;  
-        } 
-        return null;
     }
 
     /**

@@ -318,17 +318,14 @@ public class Main extends javax.swing.JFrame {
     ConexaoMySql conexao = new ConexaoMySql();
     JdbcTemplate con = conexao.getConexao();
     Login login = new Login();
-    Funcionario func1 = (Funcionario) login.informacoesLogado();
     String insertionRam = "INSERT INTO registro values (null, 1, 1, ?, ?, ?)";
     String insertionCPU = "INSERT INTO registro values (null, 1, 2, ?, ?, ?)";
     String insertionDisco = "INSERT INTO registro values (null, 1, 3, ?, ?, ?)";
     String insertionProcesso = "INSERT INTO processo values (null, 1, ?, ?, ?, ?)";
 
     public void nomeLogado() {
-        String nome = "";
-//            nome = func1.getNome();
-//        System.out.println(login.informacoesLogado());
-        mudarNome.setText("");
+        Funcionario func = new Funcionario();
+        System.out.println(func);
     }
 
     public void printInfos() {

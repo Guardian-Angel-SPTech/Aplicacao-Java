@@ -8,6 +8,13 @@ email varchar(45),
 nomeEmpresa varchar(45)
 );
 
+
+create table maquina (
+idMaquina int primary key auto_increment,
+sistOp varchar(45),
+fkEmpresa int,
+foreign key (fkEmpresa) references empresa (idEmpresa)
+);
 create table funcionario (
 idFuncionario int primary key auto_increment,
 nome varchar(45),
@@ -16,16 +23,9 @@ email varchar(45),
 senha varchar(45),
 nivelAcesso char(1),
 fkEmpresa int,
-foreign key (fkEmpresa) references empresa (idEmpresa)
-);
-
-create table maquina (
-idMaquina int primary key auto_increment,
-sistOp varchar(45),
-fkEmpresa int,
 foreign key (fkEmpresa) references empresa (idEmpresa),
-fkFuncionario int,
-foreign key (fkFuncionario) references funcionario (idFuncionario)
+fkMaquina int,
+foreign key (fkMaquina) references maquina (idMaquina)
 );
 create table processo(
 idProcesso int auto_increment,
@@ -62,5 +62,12 @@ select * from funcionario;
 select * from registro;
 select * from processo;
 
+select * from funcionario join maquina on idFuncionario = maquina.fkFuncionario
+						  join empresa on idEmpresa = funcionario.fkEmpresa,
+                          join registro on idMaquina = registro.fkMaquina;-
+
 select nome, funcionario.email ,senha, funcionario.fkEmpresa from funcionario, empresa, maquina where
 idEmpresa = maquina.fkempresa and idFuncionario = maquina.fkFuncionario and idEmpresa = funcionario.fkEmpresa;
+
+
+
