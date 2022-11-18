@@ -346,6 +346,8 @@ public class Main extends javax.swing.JFrame {
                         if (processo.getUsoCpu() >= 0.5) {
                             texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
                             con.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
+                            conMy.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
+                            
                         }
                     }
                     processoTextArea.setText(texto);
