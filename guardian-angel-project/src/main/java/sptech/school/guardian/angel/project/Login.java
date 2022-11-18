@@ -147,7 +147,8 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
-    ConexaoMySql conexao = new ConexaoMySql();
+//    ConexaoMySql conexao = new ConexaoMySql();
+    ConexaoAzure conexao = new ConexaoAzure();
     JdbcTemplate con = conexao.getConexao();
     List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
 

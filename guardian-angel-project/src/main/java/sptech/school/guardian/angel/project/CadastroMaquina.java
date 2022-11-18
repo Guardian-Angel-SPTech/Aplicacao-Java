@@ -7,8 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class CadastroMaquina {
     InformacoesLooca il = new InformacoesLooca();
-    ConexaoMySql conexao = new ConexaoMySql();
-    JdbcTemplate con = conexao.getConexao();
+//    ConexaoMySql conexao = new ConexaoMySql();
+//    JdbcTemplate con = conexao.getConexao();
 
     public void cadastrarInfsMaquina(){
         
@@ -17,8 +17,8 @@ public class CadastroMaquina {
         
         
         
-        List<Maquina> infMaquina = con.query
-        ("SELECT idMaquina, nomeMaquina, statusMaquina, processo, usoProcesso, si FROM maquina", new BeanPropertyRowMapper(Funcionario.class));
+//        List<Maquina> infMaquina = con.query
+//        ("SELECT idMaquina, nomeMaquina, statusMaquina, processo, usoProcesso, si FROM maquina", new BeanPropertyRowMapper(Funcionario.class));
         
     }
     

@@ -24,7 +24,6 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         printInfos();
-        nomeLogado();
 
     }
 
@@ -315,19 +314,16 @@ public class Main extends javax.swing.JFrame {
     Looca looca = new Looca();
     ProcessoGrupo processoGrupo = looca.getGrupoDeProcessos();
     List<Processo> processos = processoGrupo.getProcessos();
-    ConexaoMySql conexao = new ConexaoMySql();
+    ConexaoAzure conexao = new ConexaoAzure();
+//    ConexaoMySql conexao = new ConexaoMySql();
     JdbcTemplate con = conexao.getConexao();
     Login login = new Login();
-    String insertionRam = "INSERT INTO registro values (null, 1, 1, ?, ?, ?)";
-    String insertionCPU = "INSERT INTO registro values (null, 1, 2, ?, ?, ?)";
-    String insertionDisco = "INSERT INTO registro values (null, 1, 3, ?, ?, ?)";
-    String insertionProcesso = "INSERT INTO processo values (null, 1, ?, ?, ?, ?)";
+    String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 1, 1, ?, ?, ?)";
+    String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 2, ?, ?, ?)";
+    String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 3, ?, ?, ?)";
+    String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( 1, ?, ?, ?, ?)";
 
-    public void nomeLogado() {
-        Funcionario func = new Funcionario();
-        System.out.println(func);
-    }
-
+    
     public void printInfos() {
         Integer delay = 0;
         Integer intervalo = 1;

@@ -38,6 +38,7 @@ public class InformacoesLooca {
         while (true) {
             for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
                 if (processo.getUsoCpu() >= 0.5) {
+                    
                     System.out.println("Nome: " + processo.getNome() + "\n" + processo + "\n");
                 }
             }

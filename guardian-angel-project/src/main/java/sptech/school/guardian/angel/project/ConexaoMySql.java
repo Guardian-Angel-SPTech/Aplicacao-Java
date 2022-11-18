@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package sptech.school.guardian.angel.project;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -14,11 +11,11 @@ public class ConexaoMySql {
     public ConexaoMySql() {
         BasicDataSource datasource = new BasicDataSource();
         datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        datasource.setUrl("jdbc:mysql://localhost : 3306/GuardianAngel");
+        datasource.setUrl("jdbc:mysql://localhost : 3306/GuardianAngel?useTimezone=true&serverTimezone=UTC");
         datasource.setUsername("aluno");
         datasource.setPassword("sptech");
         conexao = new JdbcTemplate(datasource);
-    }
+}
     public JdbcTemplate getConexao(){
         return conexao;
     }
