@@ -55,6 +55,6 @@ insert into funcionario(nome, email, senha, fkEmpresa) values
 insert into funcionario(nome, email, senha, fkempresa) values 
 ('jorge', 'jorge@gmail.com', '123', 1);
 
-insert into maquina(idMaquina,sistOp,fkMaquina) values
+insert into maquina(idMaquina,sistOp,fkEmpresa) values
 (null, "Windows", 1);
 
