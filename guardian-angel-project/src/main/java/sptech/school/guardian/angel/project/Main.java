@@ -315,7 +315,8 @@ public class Main extends javax.swing.JFrame {
     ProcessoGrupo processoGrupo = looca.getGrupoDeProcessos();
     List<Processo> processos = processoGrupo.getProcessos();
     ConexaoAzure conexao = new ConexaoAzure();
-//    ConexaoMySql conexao = new ConexaoMySql();
+    ConexaoMySql conexaoMy = new ConexaoMySql();
+    JdbcTemplate conMy = conexaoMy.getConexao();
     JdbcTemplate con = conexao.getConexao();
     Login login = new Login();
     String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 1, 1, ?, ?, ?)";
@@ -323,7 +324,6 @@ public class Main extends javax.swing.JFrame {
     String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 3, ?, ?, ?)";
     String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( 1, ?, ?, ?, ?)";
 
-    
     public void printInfos() {
         Integer delay = 0;
         Integer intervalo = 1;
@@ -352,6 +352,10 @@ public class Main extends javax.swing.JFrame {
                     con.update(insertionRam, il.porcentagemRam(), hora, data);
                     con.update(insertionCPU, il.processador.getUso(), hora, data);
                     con.update(insertionDisco, il.porcentagemRam(), hora, data);
+
+                    conMy.update(insertionRam, il.porcentagemRam(), hora, data);
+                    conMy.update(insertionCPU, il.processador.getUso(), hora, data);
+                    conMy.update(insertionDisco, il.porcentagemRam(), hora, data);
                     il.timer(7000);
                 }
 
