@@ -26,9 +26,9 @@ public class cli {
         ConexaoMySql conexaoMy = new ConexaoMySql();
         JdbcTemplate con = conexao.getConexao();
         JdbcTemplate conMy = conexaoMy.getConexao();
-        String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 1, 1, ?, ?, ?)";
-        String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 2, ?, ?, ?)";
-        String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 3, ?, ?, ?)";
+        String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 2, 1, ?, ?, ?)";
+        String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (2, 2, ?, ?, ?)";
+        String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (2, 3, ?, ?, ?)";
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 while (true) {

@@ -319,10 +319,10 @@ public class Main extends javax.swing.JFrame {
     JdbcTemplate conMy = conexaoMy.getConexao();
     JdbcTemplate con = conexao.getConexao();
     Login login = new Login();
-    String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 1, 1, ?, ?, ?)";
-    String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 2, ?, ?, ?)";
-    String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 3, ?, ?, ?)";
-    String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( 1, ?, ?, ?, ?)";
+    String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 2, 1, ?, ?, ?)";
+    String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (2, 2, ?, ?, ?)";
+    String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (2, 3, ?, ?, ?)";
+    String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( 2, ?, ?, ?, ?)";
 
     public void printInfos() {
         Integer delay = 0;
