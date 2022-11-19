@@ -343,11 +343,10 @@ public class Main extends javax.swing.JFrame {
                     statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
 
                     for (Processo processo : processos) {
-                        if (processo.getUsoCpu() >= 0.5) {
+                        if (processo.getUsoCpu() >= 5) {
                             texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
                             con.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
                             conMy.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
-                            
                         }
                     }
                     processoTextArea.setText(texto);
