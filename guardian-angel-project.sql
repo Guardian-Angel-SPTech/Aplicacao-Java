@@ -55,19 +55,6 @@ insert into funcionario(nome, email, senha, fkEmpresa) values
 insert into funcionario(nome, email, senha, fkempresa) values 
 ('jorge', 'jorge@gmail.com', '123', 1);
 
-insert into maquina(nomeMaquina,fkEmpresa, fkFuncionario) values
-('maquina 1', 1, 3);
-
-select * from funcionario;
-select * from registro;
-select * from processo;
-
-select * from funcionario join maquina on idFuncionario = maquina.fkFuncionario
-						  join empresa on idEmpresa = funcionario.fkEmpresa,
-                          join registro on idMaquina = registro.fkMaquina;-
-
-select nome, funcionario.email ,senha, funcionario.fkEmpresa from funcionario, empresa, maquina where
-idEmpresa = maquina.fkempresa and idFuncionario = maquina.fkFuncionario and idEmpresa = funcionario.fkEmpresa;
-
-
+insert into maquina(idMaquina,sistOp,fkEmpresa) values
+(null, "Windows", 1);
 
