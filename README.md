@@ -17,4 +17,5 @@ Se persistir em em erro com driver mude está linha:
 Para: 
 
         datasource.setUrl("jdbc:mysql://localhost:3306/GuardianAngel");
-
+        
+E lembrar de cadastrar seu ip na Azure
