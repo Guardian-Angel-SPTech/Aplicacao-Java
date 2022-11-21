@@ -13,13 +13,22 @@ public class Funcionario {
     private String nome;
     private String email;
     private String senha;
-    private Integer fkMaquina;
+    private Integer fkEmpresa;
 
     public Integer getFkEmpresa() {
+        return fkEmpresa;
+    }
+
+    public void setFkEmpresa(Integer fkEmpresa) {
+        this.fkEmpresa = fkEmpresa;
+    }
+    private Integer fkMaquina;
+
+    public Integer getFkMaquina() {
         return fkMaquina;
     }
 
-    public void setFkEmpresa(Integer fkMaquina) {
+    public void setFkMaquina(Integer fkMaquina) {
         this.fkMaquina = fkMaquina;
     }
 
@@ -57,7 +66,9 @@ public class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", fkMaquina=" + fkMaquina + '}';
+        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", fkEmpresa=" + fkEmpresa + ", fkMaquina=" + fkMaquina + '}';
     }
+
+    
     
 }

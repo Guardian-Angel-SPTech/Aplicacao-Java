@@ -58,3 +58,5 @@ insert into funcionario(nome, email, senha, fkempresa) values
 insert into maquina(idMaquina,sistOp,fkEmpresa) values
 (null, "Windows", 1);
 
+update funcionario set fkMaquina = 1 where idFuncionario =1;
+

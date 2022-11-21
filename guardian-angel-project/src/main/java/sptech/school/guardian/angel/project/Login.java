@@ -136,9 +136,9 @@ public class Login extends javax.swing.JFrame {
     private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
         // TODO add your handling code here:
         String emailLogin = inputEmail.getText();
-        List<Funcionario> nomeFunc = con.query("SELECT nome FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class),emailLogin);
+        List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class),emailLogin);
         if (funcEmailExiste() && funcSenhaExiste()) {
-            Main main = new Main();
+            Main main = new Main(nomeFunc.get(0).getNome(), nomeFunc.get(0).getFkMaquina());
             main.setVisible(true);
             this.dispose();
         } else {

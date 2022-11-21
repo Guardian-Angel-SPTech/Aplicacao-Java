@@ -21,10 +21,14 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    String nome;
+    Integer idMaquina;
+    public Main(String nome, Integer idMaquina) {
         initComponents();
         printInfos();
-
+        mudarNome.setText(nome);
+        this.idMaquina = idMaquina;
+        
     }
 
     List<Sistema> sistemasAbertos = new ArrayList();
@@ -304,7 +308,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new Main(null, null).setVisible(true);
             }
         });
     }
@@ -319,10 +323,10 @@ public class Main extends javax.swing.JFrame {
     JdbcTemplate conMy = conexaoMy.getConexao();
     JdbcTemplate con = conexao.getConexao();
     Login login = new Login();
-    String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 1, 1, ?, ?, ?)";
-    String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 2, ?, ?, ?)";
-    String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 3, ?, ?, ?)";
-    String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( 1, ?, ?, ?, ?)";
+    String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( ?, 1, ?, ?, ?)";
+    String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (?, 2, ?, ?, ?)";
+    String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (?, 3, ?, ?, ?)";
+    String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( ?, ?, ?, ?, ?)";
 
     public void printInfos() {
         Integer delay = 0;
@@ -345,18 +349,18 @@ public class Main extends javax.swing.JFrame {
                     for (Processo processo : processos) {
                         if (processo.getUsoCpu() >= 5) {
                             texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
-                            con.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
-                            conMy.update(insertionProcesso, processo.getNome(), processo.getUsoCpu(), hora, data);
+                            con.update(insertionProcesso, idMaquina,processo.getNome(), processo.getUsoCpu(), hora, data);
+                            conMy.update(insertionProcesso, idMaquina, processo.getNome(), processo.getUsoCpu(), hora, data);
                         }
                     }
                     processoTextArea.setText(texto);
-                    con.update(insertionRam, il.porcentagemRam(), hora, data);
-                    con.update(insertionCPU, il.processador.getUso(), hora, data);
-                    con.update(insertionDisco, il.porcentagemRam(), hora, data);
+                    con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
+                    con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+                    con.update(insertionDisco, idMaquina, il.porcentagemRam(), hora, data);
 
-                    conMy.update(insertionRam, il.porcentagemRam(), hora, data);
-                    conMy.update(insertionCPU, il.processador.getUso(), hora, data);
-                    conMy.update(insertionDisco, il.porcentagemRam(), hora, data);
+                    conMy.update(insertionRam, idMaquina,il.porcentagemRam(), hora, data);
+                    conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+                    conMy.update(insertionDisco, idMaquina, il.porcentagemRam(), hora, data);
                     il.timer(7000);
                 }
 
