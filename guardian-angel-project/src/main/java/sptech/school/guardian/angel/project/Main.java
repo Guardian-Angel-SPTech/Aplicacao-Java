@@ -356,11 +356,11 @@ public class Main extends javax.swing.JFrame {
                     processoTextArea.setText(texto);
                     con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
                     con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                    con.update(insertionDisco, idMaquina, il.porcentagemRam(), hora, data);
+                    con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
 
                     conMy.update(insertionRam, idMaquina,il.porcentagemRam(), hora, data);
                     conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                    conMy.update(insertionDisco, idMaquina, il.porcentagemRam(), hora, data);
+                    con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
                     il.timer(7000);
                 }
 
