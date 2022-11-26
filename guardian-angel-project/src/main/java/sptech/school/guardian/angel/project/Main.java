@@ -28,7 +28,7 @@ public class Main extends javax.swing.JFrame {
         printInfos();
         mudarNome.setText(nome);
         this.idMaquina = idMaquina;
-        
+
     }
 
     List<Sistema> sistemasAbertos = new ArrayList();
@@ -331,7 +331,6 @@ public class Main extends javax.swing.JFrame {
     public void printInfos() {
         Integer delay = 0;
         Integer intervalo = 1;
-
         timer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
@@ -358,7 +357,7 @@ public class Main extends javax.swing.JFrame {
                     con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
                     con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
 
-                    conMy.update(insertionRam, idMaquina,il.porcentagemRam(), hora, data);
+                    conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
                     conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
                     conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
                     il.timer(7000);

@@ -10,52 +10,24 @@ package sptech.school.guardian.angel.project;
  */
 public class Maquina {
     private Integer idMaquina;
-    private String nomeMaquina;
-    private String statusMaquina;
-    private String processo;
-    private Double usoProcesso;
     private String sistOp;
-    private Integer fkEmpresa;
-    private Integer fkFuncionario;
+    private String macAdress;
+    private String fkEmpresa;
 
+    public String getMacAdress() {
+        return macAdress;
+    }
+
+    public void setMacAdress(String macAdress) {
+        this.macAdress = macAdress;
+    }
+    
     public Integer getIdMaquina() {
         return idMaquina;
     }
 
     public void setIdMaquina(Integer idMaquina) {
         this.idMaquina = idMaquina;
-    }
-
-    public String getNomeMaquina() {
-        return nomeMaquina;
-    }
-
-    public void setNomeMaquina(String nomeMaquina) {
-        this.nomeMaquina = nomeMaquina;
-    }
-
-    public String getStatusMaquina() {
-        return statusMaquina;
-    }
-
-    public void setStatusMaquina(String statusMaquina) {
-        this.statusMaquina = statusMaquina;
-    }
-
-    public String getProcesso() {
-        return processo;
-    }
-
-    public void setProcesso(String processo) {
-        this.processo = processo;
-    }
-
-    public Double getUsoProcesso() {
-        return usoProcesso;
-    }
-
-    public void setUsoProcesso(Double usoProcesso) {
-        this.usoProcesso = usoProcesso;
     }
 
     public String getSistOp() {
@@ -66,21 +38,13 @@ public class Maquina {
         this.sistOp = sistOp;
     }
 
-    public Integer getFkEmpresa() {
+    public String getFkEmpresa() {
         return fkEmpresa;
     }
 
-    public void setFkEmpresa(Integer fkEmpresa) {
+    public void setFkEmpresa(String fkEmpresa) {
         this.fkEmpresa = fkEmpresa;
     }
-
-    public Integer getFkFuncionario() {
-        return fkFuncionario;
-    }
-
-    public void setFkFuncionario(Integer fkFuncionario) {
-        this.fkFuncionario = fkFuncionario;
-    }
-
-   
+    
+    
 }

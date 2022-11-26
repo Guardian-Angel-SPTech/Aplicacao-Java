@@ -4,9 +4,15 @@
  */
 package sptech.school.guardian.angel.project;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -136,8 +142,15 @@ public class Login extends javax.swing.JFrame {
     private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
         // TODO add your handling code here:
         String emailLogin = inputEmail.getText();
-        List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class),emailLogin);
+        String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
+        List<Maquina> infMaquina = con.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Funcionario.class));
+        List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
         if (funcEmailExiste() && funcSenhaExiste()) {
+            try {
+                con.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
+            } catch (UnknownHostException | SocketException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             Main main = new Main(nomeFunc.get(0).getNome(), nomeFunc.get(0).getFkMaquina());
             main.setVisible(true);
             this.dispose();
@@ -147,9 +160,11 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
-//    ConexaoMySql conexao = new ConexaoMySql();
+    ConexaoMySql conexaoMySql = new ConexaoMySql();
+//    JdbcTemplate conMy = conexaoMySql.getConexao();
     ConexaoAzure conexao = new ConexaoAzure();
     JdbcTemplate con = conexao.getConexao();
+    InformacoesLooca il = new InformacoesLooca();
     List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
 
     public Boolean funcEmailExiste() {
@@ -174,6 +189,26 @@ public class Login extends javax.swing.JFrame {
             }
         }
         return existe;
+    }
+
+    public String pegarMacAdress() throws UnknownHostException, SocketException {
+        InetAddress localHost = InetAddress.getLocalHost();
+        NetworkInterface ni = NetworkInterface.getByInetAddress(localHost);
+        byte[] hardwareAddress = ni.getHardwareAddress();
+        String[] hexadecimal = new String[hardwareAddress.length];
+        for (int i = 0; i < hardwareAddress.length; i++) {
+            hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
+        }
+        String macAddress = String.join("-", hexadecimal);
+        return macAddress;
+    }
+
+    public Integer getFkEmpresa() {
+        Integer a = 0;
+        for (Funcionario funcionario : infFunc) {
+            a = funcionario.getFkEmpresa();
+        }
+        return a;
     }
 
     /**

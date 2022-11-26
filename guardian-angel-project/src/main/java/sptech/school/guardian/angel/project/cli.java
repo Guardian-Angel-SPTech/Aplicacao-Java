@@ -6,6 +6,10 @@ package sptech.school.guardian.angel.project;
 
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +19,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class cli {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException, SocketException {
         InformacoesLooca il = new InformacoesLooca();
         ProcessoGrupo processoGrupo = il.looca.getGrupoDeProcessos();
         List<Processo> processos = processoGrupo.getProcessos();
@@ -29,10 +33,11 @@ public class cli {
         String insertionRam = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( 1, 1, ?, ?, ?)";
         String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 2, ?, ?, ?)";
         String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (1, 3, ?, ?, ?)";
+
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 while (true) {
-                    Date dataHoraAtual = new Date();
+                    Date dataHoraAtual = new Date();;
                     String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);
                     String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
 
