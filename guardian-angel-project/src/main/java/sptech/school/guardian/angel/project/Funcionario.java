@@ -13,6 +13,7 @@ public class Funcionario {
     private String nome;
     private String email;
     private String senha;
+    private Integer fkMaquina;
     private Integer fkEmpresa;
 
     public Integer getFkEmpresa() {
@@ -22,8 +23,6 @@ public class Funcionario {
     public void setFkEmpresa(Integer fkEmpresa) {
         this.fkEmpresa = fkEmpresa;
     }
-    private Integer fkMaquina;
-
     public Integer getFkMaquina() {
         return fkMaquina;
     }

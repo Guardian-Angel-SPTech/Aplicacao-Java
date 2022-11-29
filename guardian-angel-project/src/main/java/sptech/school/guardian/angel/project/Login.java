@@ -143,16 +143,12 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String emailLogin = inputEmail.getText();
         String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
-        List<Maquina> infMaquina = con.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Funcionario.class));
         List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
         if (funcEmailExiste() && funcSenhaExiste()) {
-            try {
-                con.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
-            } catch (UnknownHostException | SocketException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Main main = new Main(nomeFunc.get(0).getNome(), nomeFunc.get(0).getFkMaquina());
+            Integer fkMaquina = nomeFunc.get(0).getIdFuncionario();
+            Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
             main.setVisible(true);
+
             this.dispose();
         } else {
             ErroLogin erro = new ErroLogin();
@@ -201,6 +197,20 @@ public class Login extends javax.swing.JFrame {
         }
         String macAddress = String.join("-", hexadecimal);
         return macAddress;
+    }
+
+    public Boolean macExiste() throws UnknownHostException, SocketException {
+        List<Maquina> infMaquina = con.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
+        Boolean existe = false;
+
+        for (int i = 0; i < infMaquina.size(); i++) {
+
+            if (infMaquina.get(i).getMacAdress().equals(pegarMacAdress())) {
+                existe = true;
+            }
+        }
+
+        return existe;
     }
 
     public Integer getFkEmpresa() {

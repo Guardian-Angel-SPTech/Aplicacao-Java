@@ -336,31 +336,37 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void run() {
                 while (rootPaneCheckingEnabled) {
-                    Date dataHoraAtual = new Date();
-                    String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);
-                    String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
-                    String texto = "";
-                    processoTextArea.setText(texto);
-                    statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
-                    statusRAM.setText(String.format("%.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
-                    statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
-
-                    for (Processo processo : processos) {
-                        if (processo.getUsoCpu() >= 5) {
-                            texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
-                            con.update(insertionProcesso, idMaquina,processo.getNome(), processo.getUsoCpu(), hora, data);
-                            conMy.update(insertionProcesso, idMaquina, processo.getNome(), processo.getUsoCpu(), hora, data);
+                    try {
+                        Date dataHoraAtual = new Date();
+                        String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);
+                        String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+                        String texto = "";
+                        processoTextArea.setText(texto);
+                        statusCPU.setText(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
+                        statusRAM.setText(String.format("%.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
+                        statusDisco.setText(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
+                        
+                        for (Processo processo : processos) {
+                            if (processo.getUsoCpu() >= 5) {
+                                texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
+                                con.update(insertionProcesso, idMaquina,processo.getNome(), processo.getUsoCpu(), hora, data);
+                                conMy.update(insertionProcesso, idMaquina, processo.getNome(), processo.getUsoCpu(), hora, data);
+                            }
                         }
+                        processoTextArea.setText(texto);
+                        con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
+                        con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+                        con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
+                        
+                        conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
+                        conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+                        conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
+                        il.timer(7000);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    processoTextArea.setText(texto);
-                    con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
-                    con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                    con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
-
-                    conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
-                    conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                    conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
-                    il.timer(7000);
                 }
 
             }

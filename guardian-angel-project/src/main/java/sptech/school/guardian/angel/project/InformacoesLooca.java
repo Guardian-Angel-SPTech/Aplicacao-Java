@@ -25,6 +25,8 @@ public class InformacoesLooca {
     List<Disco> discos = discoGrupo.getDiscos();
     List<Volume> volumes = discoGrupo.getVolumes();
     JSONObject json = new JSONObject();
+    Pipefy pipe = new Pipefy();
+    Funcionario func = new Funcionario();
 
     public void timer(Integer tempo) {
         try {
@@ -32,13 +34,12 @@ public class InformacoesLooca {
         } catch (Exception e) {
         }
     }
-    
 
     public void exibirProcessos() {
         while (true) {
             for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
                 if (processo.getUsoCpu() >= 0.5) {
-                    
+
                     System.out.println("Nome: " + processo.getNome() + "\n" + processo + "\n");
                 }
             }
@@ -51,18 +52,19 @@ public class InformacoesLooca {
         }
     }
 
-    public String validacaoCPU(){
+    public String validacaoCPU() throws IOException, InterruptedException {
         Double cpu = looca.getProcessador().getUso();
         if (cpu <= 40) {
             return "Bom";
         } else if (cpu > 40 && cpu < 70) {
             return "Ok";
         } else {
+            pipe.criarCards("CPU", 70, func.getNome());
             return "Crítico";
         }
     }
 
-    public String validacaoVolume() {
+    public String validacaoVolume() throws IOException, InterruptedException {
         for (Volume volume : volumes) {
 
             Long porcentagemVolume = (volume.getDisponivel() * 100) / volume.getTotal();
@@ -83,13 +85,14 @@ public class InformacoesLooca {
         return ramDisponivel;
     }
 
-    public String validacaoRam() {
+    public String validacaoRam() throws IOException, InterruptedException {
         long ramDisponivel = (memoriaRam.getDisponivel()) / memoriaRam.getTotal();
         if (ramDisponivel <= 40) {
             return "Bom";
         } else if (ramDisponivel > 40 && ramDisponivel < 70) {
             return "Ok";
         } else {
+            pipe.criarCards("Ram", 70, func.getNome());
             return "Critico";
         }
     }
