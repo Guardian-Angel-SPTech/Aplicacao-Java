@@ -11,8 +11,8 @@ public class ConexaoMySql {
         BasicDataSource datasource = new BasicDataSource();
         datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         datasource.setUrl("jdbc:mysql://localhost:3306/GuardianAngel?useTimezone=true&serverTimezone=UTC");
-        datasource.setUsername("root"); // se for para a aws mudar para root
-        datasource.setPassword("urubu100"); // se for para a aws mudar para urubu100
+        datasource.setUsername("aluno"); // se for para a aws mudar para root
+        datasource.setPassword("sptech"); // se for para a aws mudar para urubu100
         conexao = new JdbcTemplate(datasource);
 }
     public JdbcTemplate getConexao(){

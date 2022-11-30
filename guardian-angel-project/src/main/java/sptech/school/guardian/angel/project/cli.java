@@ -6,6 +6,7 @@ package sptech.school.guardian.angel.project;
 
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -15,6 +16,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class cli {
@@ -37,26 +40,32 @@ public class cli {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 while (true) {
-                    Date dataHoraAtual = new Date();;
-                    String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);
-                    String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
-
-                    System.out.println("Java cli Guardian angel");
-                    System.out.println("Exibir RAM");
-                    System.out.println(String.format("A memoria ram está em: %.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
-                    System.out.println("Exibir CPU");
-                    System.out.println(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
-                    System.out.println("Exibir Disco");
-                    System.out.println(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
-
-                    con.update(insertionRam, il.porcentagemRam(), hora, data);
-                    con.update(insertionCPU, il.processador.getUso(), hora, data);
-                    con.update(insertionDisco, il.porcentagemRam(), hora, data);
-
-                    conMy.update(insertionRam, il.porcentagemRam(), hora, data);
-                    conMy.update(insertionCPU, il.processador.getUso(), hora, data);
-                    conMy.update(insertionDisco, il.porcentagemRam(), hora, data);
-                    il.timer(7000);
+                    try {
+                        Date dataHoraAtual = new Date();;
+                        String data = new SimpleDateFormat("yyyy/MM/dd").format(dataHoraAtual);
+                        String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+                        
+                        System.out.println("Java cli Guardian angel");
+                        System.out.println("Exibir RAM");
+                        System.out.println(String.format("A memoria ram está em: %.2f%% - %s", il.porcentagemRam(), il.validacaoRam()));
+                        System.out.println("Exibir CPU");
+                        System.out.println(String.format("%.2f%% - %s ", il.processador.getUso(), il.validacaoCPU()));
+                        System.out.println("Exibir Disco");
+                        System.out.println(String.format("%d%% - %s", il.exibirMemoriaDisco(), il.validacaoVolume()));
+                        
+                        con.update(insertionRam, il.porcentagemRam(), hora, data);
+                        con.update(insertionCPU, il.processador.getUso(), hora, data);
+                        con.update(insertionDisco, il.porcentagemRam(), hora, data);
+                        
+                        conMy.update(insertionRam, il.porcentagemRam(), hora, data);
+                        conMy.update(insertionCPU, il.processador.getUso(), hora, data);
+                        conMy.update(insertionDisco, il.porcentagemRam(), hora, data);
+                        il.timer(7000);
+                    } catch (IOException ex) {
+                        Logger.getLogger(cli.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(cli.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                 }
             }

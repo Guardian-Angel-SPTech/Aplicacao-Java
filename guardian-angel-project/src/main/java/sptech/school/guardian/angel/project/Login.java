@@ -145,27 +145,31 @@ public class Login extends javax.swing.JFrame {
             String emailLogin = inputEmail.getText();
             String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
             String updateFunc = "update funcionario set fkMaquina = ? where email = ?";
-            List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
-            List<Maquina> maquinaExistente = con.query("SELECT * FROM maquina where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
+            List<Funcionario> nomeFunc = conMy.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
+            List<Maquina> maquinaExistente = conMy.query("SELECT * FROM maquina where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
 
             if (funcEmailExiste() && funcSenhaExiste()) {
                 try {
                     if (macExiste()) {
-                        con.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
+                        conMy.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
                         Integer fkMaquina = maquinaExistente.get(0).getIdMaquina();
                         Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
                         main.setVisible(true);
                     } else {
                         addMaquina();
-                        Main main = new Main(nomeFunc.get(0).getNome(), getFkMaquinaNova());
-                        main.setVisible(true);
-                        con.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
+                        List<Maquina> infMaquinaNova = conMy.query("SELECT macAdress FROM maquina  where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
+                            Integer fkMaquina = infMaquinaNova.get(0).getIdMaquina() ;
+                            conMy.update(updateFunc, fkMaquina, emailLogin);
+                            Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
+                            main.setVisible(true);
                     }
 
                     this.dispose();
+
                 } catch (UnknownHostException | SocketException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             } else {
                 ErroLogin erro = new ErroLogin();
                 erro.setVisible(true);
@@ -182,7 +186,9 @@ public class Login extends javax.swing.JFrame {
     ConexaoAzure conexao = new ConexaoAzure();
     JdbcTemplate con = conexao.getConexao();
     InformacoesLooca il = new InformacoesLooca();
-    List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
+    List<Funcionario> infFunc = conMy.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
+    String updateFunc = "update funcionario set fkMaquina = ? where email = ?";
+    List<Maquina> infMaquina = conMy.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
 
     public Boolean funcEmailExiste() {
         String emailLogin = inputEmail.getText();
@@ -190,7 +196,7 @@ public class Login extends javax.swing.JFrame {
 
         for (Funcionario funcionario : infFunc) {
             if (funcionario.getEmail().equals(emailLogin)) {
-                existe = true;
+                existe = true; 
             }
         }
         return existe;
@@ -220,8 +226,6 @@ public class Login extends javax.swing.JFrame {
         return macAddress;
     }
 
-    List<Maquina> infMaquina = con.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
-
     public Boolean macExiste() throws UnknownHostException, SocketException {
         Boolean existe = false;
 
@@ -245,20 +249,16 @@ public class Login extends javax.swing.JFrame {
 
     public void addMaquina() throws UnknownHostException, SocketException {
         String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
-        con.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
+        conMy.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
 
     }
 
-    public Integer getFkMaquinaNova() {
-        Integer fkMaquina = 0;
-        if (infMaquina.isEmpty()) {
-
-        } else {
-            fkMaquina = infMaquina.get(infMaquina.size() - 1).getIdMaquina();
-        }
-
-        return fkMaquina;
-    }
+//    public Integer getFkMaquinaNova() {
+//
+//        Integer fkMaquina = infMaquinaNova.get(infMaquina.size() - 1).getIdMaquina();
+//
+//        return fkMaquina;
+//    }
 
     /**
      * @param args the command line arguments
