@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS GuardianAngel;
 create database GuardianAngel;
 use GuardianAngel;
 
@@ -12,6 +13,7 @@ nomeEmpresa varchar(45)
 create table maquina (
 idMaquina int primary key auto_increment,
 sistOp varchar(45),
+macAdress varchar (20),
 fkEmpresa int,
 foreign key (fkEmpresa) references empresa (idEmpresa)
 );
@@ -55,8 +57,4 @@ insert into funcionario(nome, email, senha, fkEmpresa) values
 insert into funcionario(nome, email, senha, fkempresa) values 
 ('jorge', 'jorge@gmail.com', '123', 1);
 
-insert into maquina(idMaquina,sistOp,fkEmpresa) values
-(null, "Windows", 1);
-
-update funcionario set fkMaquina = 1 where idFuncionario =1;
 

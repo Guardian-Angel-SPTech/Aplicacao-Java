@@ -14,6 +14,11 @@ public class Maquina {
     private String macAdress;
     private String fkEmpresa;
 
+    @Override
+    public String toString() {
+        return "Maquina{" + "idMaquina=" + idMaquina + ", sistOp=" + sistOp + ", macAdress=" + macAdress + ", fkEmpresa=" + fkEmpresa + '}';
+    }
+
     public String getMacAdress() {
         return macAdress;
     }

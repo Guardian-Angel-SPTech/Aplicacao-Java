@@ -349,14 +349,14 @@ public class Main extends javax.swing.JFrame {
                         for (Processo processo : processos) {
                             if (processo.getUsoCpu() >= 5) {
                                 texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
-                                con.update(insertionProcesso, idMaquina,processo.getNome(), processo.getUsoCpu(), hora, data);
+//                                con.update(insertionProcesso, idMaquina,processo.getNome(), processo.getUsoCpu(), hora, data);
                                 conMy.update(insertionProcesso, idMaquina, processo.getNome(), processo.getUsoCpu(), hora, data);
                             }
                         }
                         processoTextArea.setText(texto);
-                        con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
-                        con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                        con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
+//                        con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
+//                        con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+//                        con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
                         
                         conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
                         conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);

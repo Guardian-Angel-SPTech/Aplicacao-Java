@@ -140,28 +140,49 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoDeNaoTemLoginActionPerformed
     private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
-        // TODO add your handling code here:
-        String emailLogin = inputEmail.getText();
-        String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
-        List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
-        if (funcEmailExiste() && funcSenhaExiste()) {
-            Integer fkMaquina = nomeFunc.get(0).getIdFuncionario();
-            Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
-            main.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            String emailLogin = inputEmail.getText();
+            String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
+            String updateFunc = "update funcionario set fkMaquina = ? where email = ?";
+            List<Funcionario> nomeFunc = conMy.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
+            List<Maquina> maquinaExistente = conMy.query("SELECT * FROM maquina where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
 
-            this.dispose();
-        } else {
-            ErroLogin erro = new ErroLogin();
-            erro.setVisible(true);
+            if (funcEmailExiste() && funcSenhaExiste()) {
+                try {
+                    if (macExiste()) {
+                        conMy.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
+                        Integer fkMaquina = maquinaExistente.get(0).getIdMaquina();
+                        Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
+                        main.setVisible(true);
+                    } else {
+                        addMaquina();
+                        Main main = new Main(nomeFunc.get(0).getNome(), getFkMaquinaNova());
+                        main.setVisible(true);
+                        conMy.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
+                    }
+
+                    this.dispose();
+                } catch (UnknownHostException | SocketException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                ErroLogin erro = new ErroLogin();
+                erro.setVisible(true);
+            }
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SocketException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
     ConexaoMySql conexaoMySql = new ConexaoMySql();
-//    JdbcTemplate conMy = conexaoMySql.getConexao();
+    JdbcTemplate conMy = conexaoMySql.getConexao();
     ConexaoAzure conexao = new ConexaoAzure();
     JdbcTemplate con = conexao.getConexao();
     InformacoesLooca il = new InformacoesLooca();
-    List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
+    List<Funcionario> infFunc = conMy.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
 
     public Boolean funcEmailExiste() {
         String emailLogin = inputEmail.getText();
@@ -199,8 +220,9 @@ public class Login extends javax.swing.JFrame {
         return macAddress;
     }
 
+    List<Maquina> infMaquina = conMy.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
+
     public Boolean macExiste() throws UnknownHostException, SocketException {
-        List<Maquina> infMaquina = con.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
         Boolean existe = false;
 
         for (int i = 0; i < infMaquina.size(); i++) {
@@ -219,6 +241,23 @@ public class Login extends javax.swing.JFrame {
             a = funcionario.getFkEmpresa();
         }
         return a;
+    }
+
+    public void addMaquina() throws UnknownHostException, SocketException {
+        String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
+        conMy.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
+
+    }
+
+    public Integer getFkMaquinaNova() {
+        Integer fkMaquina = 0;
+        if (infMaquina.isEmpty()) {
+
+        } else {
+            fkMaquina = infMaquina.get(infMaquina.size() - 1).getIdMaquina();
+        }
+
+        return fkMaquina;
     }
 
     /**
