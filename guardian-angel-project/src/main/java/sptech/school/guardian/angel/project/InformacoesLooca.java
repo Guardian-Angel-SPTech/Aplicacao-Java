@@ -52,12 +52,10 @@ public class InformacoesLooca {
             WindowsGlobalMemory windowsG = new WindowsGlobalMemory();
             WindowsVirtualMemory windowsSwap = new WindowsVirtualMemory(windowsG);
             porcentagem = (windowsSwap.getSwapUsed() * 100) / (windowsSwap.getSwapTotal());
-            porcentagem = 100 - porcentagem;
         } else if(looca.getSistema().getSistemaOperacional().equalsIgnoreCase("Ubuntu")){
             LinuxGlobalMemory linuxG = new LinuxGlobalMemory();
             LinuxVirtualMemory linuxSwap = new LinuxVirtualMemory(linuxG);
             porcentagem = (linuxSwap.getSwapUsed() * 100) / (linuxSwap.getSwapTotal());
-            porcentagem = 100 - porcentagem;
         }
         return porcentagem;
     }
