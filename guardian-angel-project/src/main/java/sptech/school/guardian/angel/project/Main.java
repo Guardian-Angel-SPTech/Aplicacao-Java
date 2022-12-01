@@ -360,11 +360,11 @@ public class Main extends javax.swing.JFrame {
                         con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
                         con.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);
                         
-                        conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
-                        conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                        conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
-                        conMy.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);   
-                        il.timer(7000);
+//                        conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
+//                        conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+//                        conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
+//                        conMy.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);   
+//                        il.timer(7000);
                     } catch (IOException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (InterruptedException ex) {
