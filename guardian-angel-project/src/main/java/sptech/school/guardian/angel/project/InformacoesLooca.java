@@ -15,11 +15,6 @@ import org.json.JSONObject;
 
 public class InformacoesLooca {
 
-    
-    WindowsGlobalMemory windowsG = new WindowsGlobalMemory();
-    WindowsVirtualMemory windowsSwap = new WindowsVirtualMemory(windowsG);
-    LinuxGlobalMemory linuxG = new LinuxGlobalMemory();
-    LinuxVirtualMemory linuxSwap = new LinuxVirtualMemory(linuxG);
     Looca looca = new Looca();
     Processador processador = new Looca().getProcessador();
     Memoria memoriaRam = looca.getMemoria();
@@ -54,9 +49,13 @@ public class InformacoesLooca {
         public long exibirSwap(){
         long porcentagem = 0;
         if(looca.getSistema().getSistemaOperacional().equalsIgnoreCase("windows")){
+            WindowsGlobalMemory windowsG = new WindowsGlobalMemory();
+            WindowsVirtualMemory windowsSwap = new WindowsVirtualMemory(windowsG);
             porcentagem = (windowsSwap.getSwapUsed() * 100) / (windowsSwap.getSwapTotal());
             porcentagem = 100 - porcentagem;
-        } else{
+        } else if(looca.getSistema().getSistemaOperacional().equalsIgnoreCase("Ubuntu")){
+            LinuxGlobalMemory linuxG = new LinuxGlobalMemory();
+            LinuxVirtualMemory linuxSwap = new LinuxVirtualMemory(linuxG);
             porcentagem = (linuxSwap.getSwapUsed() * 100) / (linuxSwap.getSwapTotal());
             porcentagem = 100 - porcentagem;
         }

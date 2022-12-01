@@ -158,7 +158,7 @@ public class Login extends javax.swing.JFrame {
                     } else {
                         addMaquina();
                         List<Maquina> infMaquinaNova = con.query("SELECT macAdress FROM maquina  where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
-                            Integer fkMaquina = infMaquinaNova.get(0).getIdMaquina() ;
+                            Integer fkMaquina = infMaquinaNova.get(0).getIdMaquina();
                             con.update(updateFunc, fkMaquina, emailLogin);
                             Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
                             main.setVisible(true);
