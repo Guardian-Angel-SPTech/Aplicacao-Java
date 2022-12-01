@@ -145,21 +145,21 @@ public class Login extends javax.swing.JFrame {
             String emailLogin = inputEmail.getText();
             String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
             String updateFunc = "update funcionario set fkMaquina = ? where email = ?";
-            List<Funcionario> nomeFunc = conMy.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
-            List<Maquina> maquinaExistente = conMy.query("SELECT * FROM maquina where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
+            List<Funcionario> nomeFunc = con.query("SELECT * FROM funcionario where email = ?", new BeanPropertyRowMapper(Funcionario.class), emailLogin);
+            List<Maquina> maquinaExistente = con.query("SELECT * FROM maquina where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
 
             if (funcEmailExiste() && funcSenhaExiste()) {
                 try {
                     if (macExiste()) {
-                        conMy.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
+                        con.update(updateFunc, maquinaExistente.get(0).getIdMaquina(), emailLogin);
                         Integer fkMaquina = maquinaExistente.get(0).getIdMaquina();
                         Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
                         main.setVisible(true);
                     } else {
                         addMaquina();
-                        List<Maquina> infMaquinaNova = conMy.query("SELECT macAdress FROM maquina  where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
+                        List<Maquina> infMaquinaNova = con.query("SELECT macAdress FROM maquina  where macAdress = ?", new BeanPropertyRowMapper(Maquina.class), pegarMacAdress());
                             Integer fkMaquina = infMaquinaNova.get(0).getIdMaquina() ;
-                            conMy.update(updateFunc, fkMaquina, emailLogin);
+                            con.update(updateFunc, fkMaquina, emailLogin);
                             Main main = new Main(nomeFunc.get(0).getNome(), fkMaquina);
                             main.setVisible(true);
                     }
@@ -182,13 +182,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoEntrarActionPerformed
 
     ConexaoMySql conexaoMySql = new ConexaoMySql();
-    JdbcTemplate conMy = conexaoMySql.getConexao();
+//    JdbcTemplate conMy = conexaoMySql.getConexao();
     ConexaoAzure conexao = new ConexaoAzure();
     JdbcTemplate con = conexao.getConexao();
     InformacoesLooca il = new InformacoesLooca();
-    List<Funcionario> infFunc = conMy.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
+    List<Funcionario> infFunc = con.query("SELECT * FROM funcionario", new BeanPropertyRowMapper(Funcionario.class));
     String updateFunc = "update funcionario set fkMaquina = ? where email = ?";
-    List<Maquina> infMaquina = conMy.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
+    List<Maquina> infMaquina = con.query("SELECT * FROM maquina", new BeanPropertyRowMapper(Maquina.class));
 
     public Boolean funcEmailExiste() {
         String emailLogin = inputEmail.getText();
@@ -249,7 +249,7 @@ public class Login extends javax.swing.JFrame {
 
     public void addMaquina() throws UnknownHostException, SocketException {
         String insertionMaquina = "INSERT INTO maquina(sistOp, macAdress, fkEmpresa) values (?, ?, ?)";
-        conMy.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
+        con.update(insertionMaquina, il.looca.getSistema().getSistemaOperacional(), pegarMacAdress(), getFkEmpresa());
 
     }
 
