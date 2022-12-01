@@ -327,7 +327,7 @@ public class Main extends javax.swing.JFrame {
     String insertionCPU = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (?, 2, ?, ?, ?)";
     String insertionDisco = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values (?, 3, ?, ?, ?)";
     String insertionProcesso = "INSERT INTO processo(fkMaquina, nomeProcesso, usoCpu, horaRegistro, dataRegistro) values ( ?, ?, ?, ?, ?)";
-//    String insertionSwap = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( ?, 5, ?, ?, ?)";
+    String insertionSwap = "INSERT INTO registro(fkMaquina, componente, registroComponente, horaRegistro, dataRegistro) values ( ?, 5, ?, ?, ?)";
     
     public void printInfos() {
         Integer delay = 0;
@@ -358,12 +358,12 @@ public class Main extends javax.swing.JFrame {
                         con.update(insertionRam, idMaquina ,il.porcentagemRam(), hora, data);
                         con.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
                         con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
-//                        con.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);
+                        con.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);
                         
                         conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
                         conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
                         conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
-//                        conMy.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);   
+                        conMy.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);   
                         il.timer(7000);
                     } catch (IOException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
