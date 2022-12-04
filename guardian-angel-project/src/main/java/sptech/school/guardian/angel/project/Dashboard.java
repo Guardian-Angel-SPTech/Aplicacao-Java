@@ -72,14 +72,14 @@ public class Dashboard extends javax.swing.JFrame {
         JFreeChart chart;
 
         if (numero == 1) {
-            chart = ChartFactory.createXYLineChart("Porcentagem de uso da CPU", "Leitura",
-                    "Medida", dataset, PlotOrientation.VERTICAL , false, false, false);
+            chart = ChartFactory.createXYLineChart("Uso de CPU", "Captura de dados (Tempo de Leitura)",
+                    "Porcentagem de uso (%)", dataset, PlotOrientation.VERTICAL , false, false, false);
         } else if (numero == 2) {
-            chart = ChartFactory.createXYLineChart("Porcentagem de uso da Memória RAM", "Leitura",
-                    "Medida", dataset, PlotOrientation.VERTICAL, false, false, false);
+            chart = ChartFactory.createXYLineChart("Disponibilidade de Memória RAM", "Captura de dados (Tempo de Leitura)",
+                    "Disponibilidade em Porcentagem (%)", dataset, PlotOrientation.VERTICAL, false, false, false);
         } else {
-            chart = ChartFactory.createXYLineChart("Porcentagem total usado do Disco", "Leitura",
-                    "Medida", dataset, PlotOrientation.VERTICAL, false, false, false);
+            chart = ChartFactory.createXYLineChart("Disponibilidade do Disco", "Captura de dados (Tempo de Leitura)",
+                    "Disponibilidade em Porcentagem (%)", dataset, PlotOrientation.VERTICAL, false, false, false);
         }
 
         return new ChartPanel(chart) {
