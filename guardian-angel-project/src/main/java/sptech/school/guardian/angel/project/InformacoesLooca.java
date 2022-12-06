@@ -48,11 +48,11 @@ public class InformacoesLooca {
     
         public long exibirSwap(){
         long porcentagem = 0;
-        if(looca.getSistema().getSistemaOperacional().equalsIgnoreCase("windows")){
+        if(looca.getSistema().getSistemaOperacional().contains("Windows")){
             WindowsGlobalMemory windowsG = new WindowsGlobalMemory();
             WindowsVirtualMemory windowsSwap = new WindowsVirtualMemory(windowsG);
             porcentagem = (windowsSwap.getSwapUsed() * 100) / (windowsSwap.getSwapTotal());
-        } else if(looca.getSistema().getSistemaOperacional().equalsIgnoreCase("Ubuntu")){
+        } else if(looca.getSistema().getSistemaOperacional().contains("Ubuntu")){
             LinuxGlobalMemory linuxG = new LinuxGlobalMemory();
             LinuxVirtualMemory linuxSwap = new LinuxVirtualMemory(linuxG);
             porcentagem = (linuxSwap.getSwapUsed() * 100) / (linuxSwap.getSwapTotal());
