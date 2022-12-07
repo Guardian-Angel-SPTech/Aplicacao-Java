@@ -351,7 +351,7 @@ public class Main extends javax.swing.JFrame {
                             if (processo.getUsoCpu() >= 5) {
                                 texto += String.format("Nome:  %s  \n  Uso da CPU: %.2f \n", processo.getNome(), processo.getUsoCpu());
                                 con.update(insertionProcesso, idMaquina,processo.getNome(), processo.getUsoCpu(), hora, data);
-                                conMy.update(insertionProcesso, idMaquina, processo.getNome(), processo.getUsoCpu(), hora, data);
+//                                conMy.update(insertionProcesso, idMaquina, processo.getNome(), processo.getUsoCpu(), hora, data);
                             }
                         }
                         processoTextArea.setText(texto);
@@ -360,10 +360,10 @@ public class Main extends javax.swing.JFrame {
                         con.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
                         con.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);
                         
-                        conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
-                        conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
-                        conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
-                        conMy.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);   
+//                        conMy.update(insertionRam, idMaquina, il.porcentagemRam(), hora, data);
+//                        conMy.update(insertionCPU, idMaquina, il.processador.getUso(), hora, data);
+//                        conMy.update(insertionDisco, idMaquina, il.exibirMemoriaDisco(), hora, data);
+//                        conMy.update(insertionSwap, idMaquina, il.exibirSwap(), hora, data);   
                         il.timer(7000);
                     } catch (IOException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
