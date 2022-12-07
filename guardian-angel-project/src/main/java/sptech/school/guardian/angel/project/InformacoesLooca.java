@@ -45,22 +45,25 @@ public class InformacoesLooca {
             }
         }
     }
-    
-    LinuxGlobalMemory linuxG = new LinuxGlobalMemory();
-    LinuxVirtualMemory linuxSwap = new LinuxVirtualMemory(linuxG);
-    WindowsGlobalMemory windowsG = new WindowsGlobalMemory();
-    WindowsVirtualMemory windowsSwap = new WindowsVirtualMemory(windowsG);
 
     public long exibirSwap() {
         long porcentagem = 0;
-        if (looca.getSistema().getSistemaOperacional().equalsIgnoreCase("windows") && windowsSwap.getSwapTotal() > 0 && windowsSwap.getSwapUsed() > 0) {
-            porcentagem = (windowsSwap.getSwapUsed() * 100) / (windowsSwap.getSwapTotal());
-        } else if (looca.getSistema().getSistemaOperacional().equalsIgnoreCase("Ubuntu") && linuxSwap.getSwapUsed() > 0 && linuxSwap.getSwapTotal() > 0) {
-            porcentagem = (linuxSwap.getSwapUsed() * 100) / (linuxSwap.getSwapTotal());
+        if (looca.getSistema().getSistemaOperacional().equalsIgnoreCase("windows")) {
+            WindowsGlobalMemory windowsG = new WindowsGlobalMemory();
+            WindowsVirtualMemory windowsSwap = new WindowsVirtualMemory(windowsG);
+            if (windowsSwap.getSwapTotal() > 0 && windowsSwap.getSwapUsed() > 0) {
+                porcentagem = (windowsSwap.getSwapUsed() * 100) / (windowsSwap.getSwapTotal());
+            }
+        } else if (looca.getSistema().getSistemaOperacional().equalsIgnoreCase("Ubuntu")) {
+            LinuxGlobalMemory linuxG = new LinuxGlobalMemory();
+            LinuxVirtualMemory linuxSwap = new LinuxVirtualMemory(linuxG);
+            if (linuxSwap.getSwapUsed() > 0 && linuxSwap.getSwapTotal() > 0) {
+                porcentagem = (linuxSwap.getSwapUsed() * 100) / (linuxSwap.getSwapTotal());
+
+            }
         }
         return porcentagem;
     }
-
 
     public void exibirMemoria() {
         while (true) {
